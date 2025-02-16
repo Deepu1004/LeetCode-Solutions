@@ -1,17 +1,22 @@
+
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        l,r=0,0
-        maxlen, maxf = 0,0
-        has = [0]*26
+        start = 0
+        fmap = {}
+        maxf = 0
+        longest = 0
 
-        while(r<len(s)):
-            has[ord(s[r]) - ord('A')] += 1
-            maxf = max(maxf, has[ord(s[r]) - ord('A')])
-            if(r-l+1 - maxf > k):
-                has[ord(s[l]) - ord('A')] -= 1
-                l += 1
-            if(r-l+1 -maxf <= k):
-                maxlen = max(maxlen,r-l+1)
-            r += 1
+        for end in range(len(s)):
+            fmap[s[end]] = fmap.get(s[end], 0) + 1
 
-        return maxlen
+            maxf = max(maxf, fmap[s[end]])
+
+            is_val = (end + 1 - start - maxf <= k)
+
+            if not is_val:
+                fmap[s[start]] -= 1
+                start += 1
+            
+            longest = end + 1 - start
+    
+        return longest
