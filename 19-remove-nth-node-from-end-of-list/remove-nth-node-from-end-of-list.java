@@ -16,7 +16,7 @@ class Solution {
             cnt++;
             temp = temp.next;
         }
-        if(n == cnt && n != 1) return head.next;
+        if(n >= cnt) return head.next;
         if(n < cnt){
             temp = head;
             cnt = cnt - n - 1;
