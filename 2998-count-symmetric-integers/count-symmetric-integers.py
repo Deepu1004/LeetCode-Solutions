@@ -5,13 +5,19 @@ class Solution:
         cnt = 0
 
         for num in range(low, high+1):
-            number = str(num)
-            if(len(number) == 2):
-                if(number[0] == number[1]):
-                    cnt += 1
-            elif(len(number) == 4):
-                left = int(number[0]) + int(number[1])
-                right = int(number[2]) + int(number[3])
+            if((num >= 10 and num<=99) and (num % 11 == 0) ):
+                cnt += 1
+            elif(num >= 1000 and num <= 9999):
+                left = 0
+                right = 0
+                for i in range(2):
+                    right += num%10
+                    num = num//10
+
+                for i in range(2):
+                    left += num%10
+                    num = num//10
                 if(left == right):
                     cnt += 1
+    
         return cnt
